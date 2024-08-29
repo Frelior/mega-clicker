@@ -1,18 +1,22 @@
-import { Switch, Text, View } from "react-native"
+import { Switch, SafeAreaView } from "react-native"
 import { useColorScheme } from "nativewind"
 import ThemedText from "@/components/ThemedText"
+import ThemedView from "@/components/ThemedView"
+import ThemedStatusBar from "@/components/ThemedStatusBar"
 
 export default function SettingsScreen() {
   const { colorScheme, toggleColorScheme } = useColorScheme()
   console.log(colorScheme)
 
   return (
-    <View className="flex flex-col justify-center items-center h-full dark:bg-gray-600 transition-colors ease-in-out delay-150">
-      <ThemedText themedClassName="text-3xl font-bold">Toggle theme</ThemedText>
+    <ThemedView classes="flex flex-col justify-center items-center h-full">
+      <SafeAreaView />
+      <ThemedStatusBar />
+      <ThemedText classes="text-3xl font-bold">Toggle theme</ThemedText>
       <Switch
         value={colorScheme === "dark"}
         onValueChange={() => toggleColorScheme()}
       />
-    </View>
+    </ThemedView>
   )
 }

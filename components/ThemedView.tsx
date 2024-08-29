@@ -1,14 +1,19 @@
-import { View, type ViewProps } from 'react-native';
+import { View } from "react-native"
+import { styled } from "nativewind"
 
-import { useThemeColor } from '@/hooks/useThemeColor';
+const StyledView = styled(View)
 
-export type ThemedViewProps = ViewProps & {
-  lightColor?: string;
-  darkColor?: string;
-};
-
-export function ThemedView({ style, lightColor, darkColor, ...otherProps }: ThemedViewProps) {
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
-
-  return <View style={[{ backgroundColor }, style]} {...otherProps} />;
+// i used classes prop because className prop does no effect, i think it conflicts with tailwind
+export default function ThemedView({
+  children,
+  classes,
+}: {
+  children: React.ReactNode
+  classes?: string
+}) {
+  return (
+    <StyledView className={`bg-gray-200 dark:bg-gray-800 ${classes}`}>
+      {children}
+    </StyledView>
+  )
 }
