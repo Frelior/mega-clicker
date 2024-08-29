@@ -1,16 +1,23 @@
 import { Switch, Text, View } from "react-native"
-import { useColorScheme } from "nativewind"
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks"
+import { toggleTheme } from "@/slices/themeSlice"
 
 export default function SettingsScreen() {
-  const { colorScheme, toggleColorScheme } = useColorScheme()
-  console.log(colorScheme)
+  const dispatch = useAppDispatch()
+
+  function toggleAppTheme() {
+    dispatch(toggleTheme())
+  }
+
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode)
+  console.log(isDarkMode, "dark mode")
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View className="flex flex-col justify-center items-center h-full">
       <Text className="text-3xl">Toggle theme</Text>
       <Switch
-        value={colorScheme === "dark"}
-        onValueChange={toggleColorScheme}
+        value={isDarkMode}
+        onValueChange={() => toggleAppTheme()}
       />
     </View>
   )
